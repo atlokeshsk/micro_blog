@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package blog;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/atlokeshsk/micro_blog/protogen/blog";
+
+message Blog {
+  string id = 1;
+  string author_id = 2;
+  string title = 3;
+  string content = 4;
+}
+
+message BlogID { string id = 1; }
+
+service BlogService {
+  rpc CreateBlog(Blog) returns (BlogID);
+  rpc GetBlog(BlogID) returns (Blog);
+  rpc UpdateBlog(BlogID) returns (google.protobuf.Empty);
+  rpc DeleteBlog(BlogID) returns (google.protobuf.Empty);
+  rpc ListBlog(google.protobuf.Empty) returns (stream Blog);
+}
